@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Uploader from './components/Uploader';
+import List from './components/List';
+import Mask from './components/Mask';
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
   }
   button {
     cursor: pointer;
+    padding: 5px 8px;
+    background-color: white;
+    border-radius: 3px;
   }
   input[type=file] {
     cursor: pointer;
@@ -15,14 +24,26 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  max-width: 1024px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
+  width: 100%;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 function App() {
+  const [ isUploading, setIsUploading ] = useState(false);
+  const previousLoadingStatus = usePrevious(isUploading);
+
   /*
   const [region, setRegion] = useState('');
   useEffect(() => {
@@ -34,7 +55,18 @@ function App() {
   */
   return (
     <Container>
-      <Uploader />
+      <Mask
+        showUp={isUploading}
+      />
+      <Uploader
+        setIsUploading={setIsUploading}
+        isUploading={isUploading}
+      />
+      <List
+        previousLoadingStatus={previousLoadingStatus}
+        isUploading={isUploading}
+        setIsUploading={setIsUploading}
+      />
       <GlobalStyle />
     </Container>
   );

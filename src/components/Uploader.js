@@ -41,21 +41,26 @@ const fileElem = ({
 
 let fileMap = {};
 
-function Uploader() {
+function Uploader({
+  setIsUploading,
+  isUploading,
+}) {
   const [ pendingFiles, setPendingFiles ] = useState([]);
-  const [ isUploading, setIsUploading ] = useState(false);
 
   const upload = (e) => {
     e.preventDefault();
-    setIsUploading(true);
-    let acc = 0;
     const keys = Object.keys(fileMap);
+    if (keys.length === 0) {
+      return;
+    }
+    let acc = 0;
+    setIsUploading(true);
     let localPendingFiles = [ ...pendingFiles ];
     keys.forEach((key, index) => {
       uploadFile({
         typedArray: fileMap[key].typedArray,
         fileName: key,
-        contentType: fileMap[key].type,
+        contentType: fileMap[key].contentType,
       })
       .then(({
         url,
@@ -151,7 +156,7 @@ function Uploader() {
           multiple
           onChange={onChangeHandler}
         />
-        <button onClick={upload}>upload</button>
+      <button onClick={upload}>Upload</button>
       </Panel>
       <div>
         <h3>Status</h3>
