@@ -15,6 +15,7 @@
   "scripts": {
     "start": "PORT=3030 react-scripts start",
     "build": "react-scripts build",
+    "deploy": "node ./src/utils/deploy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "winston": "^3.2.1"
   }
 }
