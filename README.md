@@ -2,6 +2,9 @@
 simple s3 uploader for recall-06-06 project for PTS
 
 
+## URL
+* https://d901qijy7gejc.cloudfront.net/
+
 ## Filetypes
 * audio
     * mp3
