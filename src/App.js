@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 5px 8px;
     background-color: white;
     border-radius: 3px;
+    border: 1px solid #cccccc;
+    &:hover {
+      background-color: #F5F5F5;
+    }
   }
   input[type=file] {
     cursor: pointer;
